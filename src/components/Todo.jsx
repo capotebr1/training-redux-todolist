@@ -1,16 +1,40 @@
-import React from 'react';
+import React from "react";
+import { useDispatch } from "react-redux";
+const Todo = ({ id, name, date, completed }) => {
+  const dispatch = useDispatch();
 
-const Todo = ({ id, name, date, toggleTodo, removeTodo, completed }) => {
-    return (
-        <div className='todo-container' style={ completed ? { borderColor: "rgba(196, 255, 186, 1)", backgroundColor: "rgba(196, 255, 186, 0.5)" } : { borderColor: "gray" } }>
-            <h2>{name}</h2>
-            <div className='todo-options'>
-                <h3>{date}</h3>
-                <button onClick={() => toggleTodo(id)}>Toggle</button>
-                <button onClick={() => removeTodo(id)}>Delete</button>
-            </div>
-        </div>
-    );
-}
+  return (
+    <div
+      className="todo-container"
+      style={
+        completed
+          ? {
+              borderColor: "rgba(196, 255, 186, 1)",
+              backgroundColor: "rgba(196, 255, 186, 0.5)",
+            }
+          : { borderColor: "gray" }
+      }
+    >
+      <h2>{name}</h2>
+      <div className="todo-options">
+        <h3>{date}</h3>
+        <button
+          onClick={() =>
+            dispatch({ type: "todos/toggleTodo", payload: { id: id } })
+          }
+        >
+          Toggle
+        </button>
+        <button
+          onClick={() =>
+            dispatch({ type: "todos/removeTodo", payload: { id: id } })
+          }
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Todo;
