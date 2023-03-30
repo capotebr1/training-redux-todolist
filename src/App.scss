@@ -1,0 +1,28 @@
+.App{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    .todos{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .todo-container{
+            display: flex;
+            gap: 40px;
+            align-content: space-between;
+            justify-content: center;
+            border: 4px solid;
+            padding: 10px 20px;
+
+            .todo-options{
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+    }
+
+}
