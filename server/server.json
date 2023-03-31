@@ -1,5 +1,10 @@
 {
-    "todos": [
-
-    ]
+  "todos": [
+    {
+      "id": 1,
+      "name": "assaas",
+      "date": "2023-03-04",
+      "completed": false
+    }
+  ]
 }

@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.scss";
 import TodoForm from "./components/TodoForm";
 import Todo from "./components/Todo";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
+import { getAll } from "./services";
+
 function App() {
   const selectTodos = (state) => state;
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    getAll().
+    then(todos => dispatch({ type: "todos/init" , payload: todos }));
+  }, [dispatch]);
+
+  const todos = useSelector(selectTodos);
+  
   const ShowTodos = () => {
-    const todos = useSelector(selectTodos);
 
     if (todos.length > 0) {
       return todos.map((todo) => (

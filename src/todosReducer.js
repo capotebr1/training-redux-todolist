@@ -2,6 +2,9 @@ let initialState = [];
 
 const todosReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "todos/init":
+      return action.payload;
+
     case "todos/addTodo":
       return [...state, action.payload];
 

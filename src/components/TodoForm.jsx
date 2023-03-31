@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import TODO from "../todoClass";
 const selectTodos = (state) => state.todos;
-
+import { addTodo } from "../services";
 import { useDispatch, useSelector } from "react-redux";
 
 const TodoForm = () => {
@@ -11,13 +11,16 @@ const TodoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const id = Math.round(Math.random() * 10000);
-    const newTodo = new TODO(
-      id,
-      todoName.current.value,
-      todoDate.current.value,
-      false
-    );
+
+    const newTodo = {
+      
+      name: todoName.current.value,
+      date: todoDate.current.value,
+      completed: false,
+    }
+
+    addTodo(newTodo);
+
     dispatch({ type: "todos/addTodo", payload: newTodo });
     todoName.current.value = "";
     todoDate.current.value = "";

@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { deleteTodo , toggleTodo } from "../services";
 const Todo = ({ id, name, date, completed }) => {
   const dispatch = useDispatch();
 
@@ -19,15 +20,19 @@ const Todo = ({ id, name, date, completed }) => {
       <div className="todo-options">
         <h3>{date}</h3>
         <button
-          onClick={() =>
-            dispatch({ type: "todos/toggleTodo", payload: { id: id } })
+          onClick={() =>{
+            toggleTodo(id, name, date, completed);
+            dispatch({ type: "todos/toggleTodo", payload: { id: id } });
           }
-        >
+          }
+          >
           Toggle
         </button>
         <button
-          onClick={() =>
+          onClick={() =>{
+            deleteTodo(id, completed);
             dispatch({ type: "todos/removeTodo", payload: { id: id } })
+          }
           }
         >
           Delete
