@@ -1,20 +1,21 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteTodo , toggleTodo } from "../services";
+import { todoDeleted, todoToggled } from "../actions";
 const Todo = ({ id, name, date, completed }) => {
   const dispatch = useDispatch();
 
   const handleToggleClick = async () => {
     const response = await toggleTodo(name, date, completed, id);
     console.log(response);
-    dispatch({ type: "todos/toggleTodo", payload: response});
+    dispatch( todoToggled(response) );
     return response;
   }
 
   const handleDeleteClick = async () => {
     const response = await deleteTodo(id);
     console.log(response);
-    dispatch({ type: "todos/removeTodo", payload: { id: id } })
+    dispatch( todoDeleted(id) )
     return response;
   }
 

@@ -1,4 +1,3 @@
-import TODO from "./todoClass";
 const TODOS_URL = "http://localhost:3000/todos";
 
 export const getAll = async () => {
@@ -17,7 +16,7 @@ export const addTodo = async (todo) => {
         body: JSON.stringify(todo)
     })
     return response.json();
-}
+};
 
 export const deleteTodo = async (id) => {
     const response = await fetch(`${TODOS_URL}/${id}` , {
@@ -26,7 +25,7 @@ export const deleteTodo = async (id) => {
         cache: "default",
     });
     return response.json();
-}
+};
 
 export const toggleTodo = async (name, date, completed, id) => {
     const response = await fetch(`${TODOS_URL}/${id}` , {
@@ -42,4 +41,4 @@ export const toggleTodo = async (name, date, completed, id) => {
         })
     })
     return response.json();
-}
+};

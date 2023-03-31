@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
-import TODO from "../todoClass";
-const selectTodos = (state) => state.todos;
 import { addTodo } from "../services";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { todoAdded } from "../actions";
 
 const TodoForm =  () => {
   const dispatch = useDispatch();
@@ -18,9 +17,9 @@ const TodoForm =  () => {
       completed: false
     }
 
-    const response = await addTodo(newTodo);
-    console.log(response);
-    dispatch({ type: "todos/addTodo", payload: response });
+    addTodo(newTodo)
+    .then(response => dispatch( todoAdded(newTodo) ));
+
     todoName.current.value = "";
     todoDate.current.value = "";
   };

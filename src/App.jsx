@@ -4,6 +4,7 @@ import TodoForm from "./components/TodoForm";
 import Todo from "./components/Todo";
 import { useSelector , useDispatch } from "react-redux";
 import { getAll } from "./services";
+import { todoInit } from "./actions";
 
 function App() {
   const selectTodos = (state) => state;
@@ -11,7 +12,7 @@ function App() {
 
   useEffect(() => {
     getAll().
-    then(todos => dispatch({ type: "todos/init" , payload: todos }));
+    then(todos => dispatch( todoInit(todos) ));
   }, [dispatch]);
 
   const todos = useSelector(selectTodos);
@@ -29,7 +30,7 @@ function App() {
         ></Todo>
       ));
     } else {
-      return <h2>No Todos added yet</h2>;
+      return <h2>No Todos added yet...</h2>;
     }
   };
 
