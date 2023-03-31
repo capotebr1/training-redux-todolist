@@ -9,6 +9,7 @@ import { todoInit } from "./actions";
 function App() {
   const selectTodos = (state) => state;
   const dispatch = useDispatch();
+  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
     getAll().
@@ -17,19 +18,32 @@ function App() {
 
   const todos = useSelector(selectTodos);
   
-  const ShowTodos = () => {
+  const handleClick = () => {
+    setFilter( !filter );
+  }
 
+  const Todos = ({ todos }) => (
+    todos.map((todo, index) => (
+      <Todo
+        key={index}
+        id={todo.id}
+        name={todo.name}
+        date={todo.date}
+        completed={todo.completed}
+      ></Todo>
+    ))
+  );
+
+  const ShowTodos = () => {
     if (todos.length > 0) {
-      return todos.map((todo, index) => (
-        <Todo
-          key={index}
-          id={todo.id}
-          name={todo.name}
-          date={todo.date}
-          completed={todo.completed}
-        ></Todo>
-      ));
-    } else {
+
+      if(!filter){
+        return <Todos todos={todos.filter( todo => todo.completed )} ></Todos>
+      }
+      return <Todos todos={todos} ></Todos>
+      
+    } 
+    else {
       return <h2>No Todos added yet...</h2>;
     }
   };
@@ -40,6 +54,7 @@ function App() {
       <TodoForm />
       <div className="todos">
         <ShowTodos />
+        <button onClick={handleClick} > { filter ? "Show Completed" : "Show All"  } </button>
       </div>
     </div>
   );
