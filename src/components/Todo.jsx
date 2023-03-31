@@ -4,6 +4,20 @@ import { deleteTodo , toggleTodo } from "../services";
 const Todo = ({ id, name, date, completed }) => {
   const dispatch = useDispatch();
 
+  const handleToggleClick = async () => {
+    const response = await toggleTodo(name, date, completed, id);
+    console.log(response);
+    dispatch({ type: "todos/toggleTodo", payload: response});
+    return response;
+  }
+
+  const handleDeleteClick = async () => {
+    const response = await deleteTodo(id);
+    console.log(response);
+    dispatch({ type: "todos/removeTodo", payload: { id: id } })
+    return response;
+  }
+
   return (
     <div
       className="todo-container"
@@ -20,20 +34,12 @@ const Todo = ({ id, name, date, completed }) => {
       <div className="todo-options">
         <h3>{date}</h3>
         <button
-          onClick={() =>{
-            toggleTodo(id, name, date, completed);
-            dispatch({ type: "todos/toggleTodo", payload: { id: id } });
-          }
-          }
+          onClick={handleToggleClick}
           >
           Toggle
         </button>
         <button
-          onClick={() =>{
-            deleteTodo(id, completed);
-            dispatch({ type: "todos/removeTodo", payload: { id: id } })
-          }
-          }
+          onClick={handleDeleteClick}
         >
           Delete
         </button>

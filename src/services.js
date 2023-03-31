@@ -16,7 +16,7 @@ export const addTodo = async (todo) => {
         cache: "default",
         body: JSON.stringify(todo)
     })
-    return response;
+    return response.json();
 }
 
 export const deleteTodo = async (id) => {
@@ -24,21 +24,22 @@ export const deleteTodo = async (id) => {
         method: "DELETE",
         mode: "cors",
         cache: "default",
-        body: id
-    })
-    return response;
+    });
+    return response.json();
 }
 
-export const toggleTodo = async (id, name, date, completed) => {
-    const newTodo = new TODO(id, name, date, !completed);
+export const toggleTodo = async (name, date, completed, id) => {
     const response = await fetch(`${TODOS_URL}/${id}` , {
         method: "PUT",
-        mode: "cors",
         headers: {
             "Content-Type": "application/json",
           },
-        cache: "default",
-        body: JSON.stringify(newTodo)
+        body: JSON.stringify({
+            name: name,
+            date: date,
+            completed: !completed,
+            id: id
+        })
     })
-    return response;
+    return response.json();
 }

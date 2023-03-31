@@ -4,24 +4,23 @@ const selectTodos = (state) => state.todos;
 import { addTodo } from "../services";
 import { useDispatch, useSelector } from "react-redux";
 
-const TodoForm = () => {
+const TodoForm =  () => {
   const dispatch = useDispatch();
   const todoName = useRef();
   const todoDate = useRef();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newTodo = {
-      
       name: todoName.current.value,
       date: todoDate.current.value,
-      completed: false,
+      completed: false
     }
 
-    addTodo(newTodo);
-
-    dispatch({ type: "todos/addTodo", payload: newTodo });
+    const response = await addTodo(newTodo);
+    console.log(response);
+    dispatch({ type: "todos/addTodo", payload: response });
     todoName.current.value = "";
     todoDate.current.value = "";
   };

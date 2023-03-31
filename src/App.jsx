@@ -19,9 +19,9 @@ function App() {
   const ShowTodos = () => {
 
     if (todos.length > 0) {
-      return todos.map((todo) => (
+      return todos.map((todo, index) => (
         <Todo
-          key={todo.id}
+          key={index}
           id={todo.id}
           name={todo.name}
           date={todo.date}
